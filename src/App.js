@@ -11,6 +11,14 @@ function App() {
                 console.log(response);
                 const total_pages = response.data.total_pages;
                 console.log("Total pages: " + total_pages);
+
+                // Get total pages from JSON object
+                // Using total pages, get a random page between [1, total_pages]
+                const random_page = Math.floor(Math.random() * total_pages + 1);
+                console.log("Random page: " + random_page);
+
+                // Send another request to Discover endpoint, this time with page as filter
+                // Grab a random movie from the returned objects
             })
             .catch((error) => {
                 console.log(error);
