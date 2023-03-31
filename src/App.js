@@ -9,8 +9,7 @@ function App() {
             .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US`)
             .then((response) => {
                 console.log(response);
-                const total_pages = response.data.total_pages;
-                console.log("Total pages: " + total_pages);
+                const total_pages = 500;
 
                 // Get total pages from JSON object
                 // Using total pages, get a random page between [1, total_pages]
