@@ -5,7 +5,7 @@ function App() {
     const findMovie = () => {
         const api_key = process.env.REACT_APP_TMDB_API_KEY;
         
-        const movie_details = axios
+        axios
             .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US`)
             .then((response) => {
                 console.log(response);
@@ -19,6 +19,14 @@ function App() {
 
                 // Send another request to Discover endpoint, this time with page as filter
                 // Grab a random movie from the returned objects
+                const movie_details = axios
+                                        .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}`)
+                                        .then((response) => {
+                                            console.log(response);
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                        });
             })
             .catch((error) => {
                 console.log(error);
