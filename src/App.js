@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useState, useHook} from 'react';
 import axios from 'axios';
 
 function App() {
-    const findMovie = () => {
-        const [genre, setGenre] = useState([]);
-        const [maxYear, setMaxYear] = useState(null);
-        const [minYear, setMinYear] = useState(null);
+    const [genre, setGenre] = useState([]);
+    const [maxYear, setMaxYear] = useState(null);
+    const [minYear, setMinYear] = useState(null);
 
+    const findMovie = () => {
         const api_key = process.env.REACT_APP_TMDB_API_KEY;
         const total_pages = 500;
 
