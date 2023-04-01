@@ -3,8 +3,8 @@ import axios from 'axios';
 
 function App() {
     const [genre, setGenre] = useState([]);
-    const [maxYear, setMaxYear] = useState(null);
-    const [minYear, setMinYear] = useState(null);
+    const [maxYear, setMaxYear] = useState(new Date().getFullYear());
+    const [minYear, setMinYear] = useState(1930);
 
     const findMovie = () => {
         const api_key = process.env.REACT_APP_TMDB_API_KEY;
@@ -15,7 +15,7 @@ function App() {
         
         axios
             .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}
-                    &primary_release_date.gte=${2000}-01-01&primary_release_date.lte=${2021}-12-31`)
+                    &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31`)
             .then((response) => {
                 console.log(response);
 
