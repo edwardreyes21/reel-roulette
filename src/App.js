@@ -13,6 +13,9 @@ function App() {
             .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}`)
             .then((response) => {
                 console.log(response);
+
+                const selected_movie = response.data.results[0];
+                console.log("Selected movie: " + JSON.stringify(selected_movie, null, 2));
             })
             .catch((error) => {
                 console.log(error);
