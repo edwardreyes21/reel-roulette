@@ -3,6 +3,10 @@ import axios from 'axios';
 
 function App() {
     const findMovie = () => {
+        const [genre, setGenre] = useState([]);
+        const [maxYear, setMaxYear] = useState(null);
+        const [minYear, setMinYear] = useState(null);
+
         const api_key = process.env.REACT_APP_TMDB_API_KEY;
         const total_pages = 500;
 
@@ -10,7 +14,8 @@ function App() {
         console.log("Random page: " + random_page);
         
         axios
-            .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}`)
+            .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}
+                    &primary_release_date.gte=${2000}-01-01&primary_release_date.lte=${2021}-12-31`)
             .then((response) => {
                 console.log(response);
 
