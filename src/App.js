@@ -8,9 +8,22 @@ function App() {
     const [minYear, setMinYear] = useState(2023);
     const [selectedMovie, setSelectedMovie] = useState(null);
 
+    const handleMinYearChange = (event) => {
+        setMinYear(event.target.value);
+    }
+
+    const handleMaxYearChange = (event) => {
+        setMaxYear(event.target.value);
+    }
+
     useEffect(() => {
-            console.log(selectedMovie);
+        console.log(selectedMovie);
     }, [selectedMovie]);
+
+    useEffect(() => {
+        console.log("minYear: " + minYear);
+        console.log("maxYear: " + maxYear);
+    }, [minYear, maxYear]);
 
 
     const findMovie = () => {
@@ -55,6 +68,12 @@ function App() {
 
     return (
         <div className="App">
+            <form>
+                <label htmlFor="minYear">Minimum Year:</label>
+                <input type="text" id="minYear" value={minYear} onChange={handleMinYearChange}></input>
+                <label htmlFor="maxYear">Maximum Year:</label>
+                <input type="text" id="maxYear" value={maxYear} onChange={handleMaxYearChange}></input>
+            </form>
             <button onClick={findMovie}>Find Me a Movie!</button>
         </div>
     )
