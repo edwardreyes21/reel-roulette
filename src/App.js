@@ -1,4 +1,4 @@
-import React, {useState, useHook} from 'react';
+import React, {useState, useHook, useEffect} from 'react';
 import axios from 'axios';
 
 function App() {
@@ -6,6 +6,12 @@ function App() {
     const [actors, setActors] = useState([]);
     const [maxYear, setMaxYear] = useState(new Date().getFullYear());
     const [minYear, setMinYear] = useState(2023);
+    const [selectedMovie, setSelectedMovie] = useState(null);
+
+    useEffect(() => {
+            console.log(selectedMovie);
+    }, [selectedMovie]);
+
 
     const findMovie = () => {
         const api_key = process.env.REACT_APP_TMDB_API_KEY;
@@ -31,16 +37,14 @@ function App() {
                         .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${new_total_pages}
                         &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31`)
                         .then((response) => {
-                            selected_movie = response.data.results[0];
-                            console.log(selected_movie);
+                            setSelectedMovie(response.data.results[0]);
                         })
                         .catch((error) => {
                             console.log(error);
                         })
                 }
                 else {
-                    selected_movie = response.data.results[0];
-                    console.log(selected_movie);
+                    setSelectedMovie(response.data.results[0]);
                 }
 
             })
