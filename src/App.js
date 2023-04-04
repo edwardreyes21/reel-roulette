@@ -74,7 +74,15 @@ function App() {
                 <label htmlFor="maxYear">Maximum Year:</label>
                 <input type="text" id="maxYear" value={maxYear} onChange={handleMaxYearChange}></input>
             </form>
+
             <button onClick={findMovie}>Find Me a Movie!</button>
+
+            {selectedMovie && (
+                <div>
+                    <h1>Title: {selectedMovie.title}</h1>
+                    <p>Summary: {selectedMovie.overview}</p>
+                </div>
+            )}
         </div>
     )
 }
