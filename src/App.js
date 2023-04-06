@@ -73,21 +73,26 @@ function App() {
         const random_page = Math.floor(Math.random() * default_total_pages + 1);
         console.log("Random page: " + random_page);
 
+        const genreClone = [...genre];
+
         axios
             .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}
-                    &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31`)
+                    &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&with_genres=${genreClone.join(',')}`)
             .then((response) => {
-                console.log(response);
+                console.log("First GET", response);
 
                 const actual_total_pages = response.data.total_pages;
+
+                console.log("Actual total pages: " + actual_total_pages);
 
                 if (actual_total_pages < default_total_pages) {
                     const new_total_pages = Math.floor(Math.random() * actual_total_pages + 1);
 
                     axios
                         .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${new_total_pages}
-                        &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31`)
+                            &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&with_genres=${genreClone.join(',')}`)
                         .then((response) => {
+                            console.log("New GET", response);
                             setSelectedMovie(response.data.results[0]);
                         })
                         .catch((error) => {
