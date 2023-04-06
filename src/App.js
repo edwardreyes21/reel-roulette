@@ -73,8 +73,6 @@ function App() {
         const random_page = Math.floor(Math.random() * default_total_pages + 1);
         console.log("Random page: " + random_page);
 
-        let selected_movie = null;
-
         axios
             .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}
                     &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31`)
