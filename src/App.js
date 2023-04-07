@@ -151,6 +151,7 @@ function App() {
                 <div>
                     <h1>Title: {selectedMovie.title}</h1>
                     <p>Summary: {selectedMovie.overview}</p>
+                    <p>Genres: {selectedMovie.genre_ids.map(id => (genreMap[id])).join(', ')}</p>
                 </div>
             )}
         </div>
