@@ -1,4 +1,5 @@
 import React, {useState, useHook, useEffect} from 'react';
+import './App.css'
 import axios from 'axios';
 
 function App() {
@@ -150,6 +151,7 @@ function App() {
             {selectedMovie && (
                 <div>
                     <h1>Title: {selectedMovie.title}</h1>
+                    <img id="poster" src={`https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`}></img>
                     <p>Summary: {selectedMovie.overview}</p>
                     <p>Release date: {selectedMovie.release_date}</p>
                     <p>Genres: {selectedMovie.genre_ids.map(id => (genreMap[id])).join(', ')}</p>
