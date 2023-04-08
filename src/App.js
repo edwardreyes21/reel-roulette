@@ -39,6 +39,11 @@ function App() {
         setMaxYear(event.target.value);
     }
 
+    const handleActorChange = (actor, event) => {
+        event.preventDefault();
+        console.log("Retrieved " + actor);
+    }
+
     const handleGenreChange = (event) => {
         const options = event.target.options;
         const selectedValues = [];
@@ -140,10 +145,12 @@ function App() {
                         <li key={genre}> {genreMap[genre]} <button onClick={() => handleRemoveGenre(genre)}>Remove</button></li>
                     ))}
                 </ul>
+                <input type="text" id="actorName" placeholder="Enter the name of an actor"/>
+                <button onClick={(event) => handleActorChange(document.getElementById('actorName').value, event)}>Add actor</button>
                 <label htmlFor="minYear">Minimum Year:</label>
-                <input type="text" id="minYear" value={minYear} onChange={handleMinYearChange}></input>
+                <input type="text" id="minYear" value={minYear} onChange={handleMinYearChange}/>
                 <label htmlFor="maxYear">Maximum Year:</label>
-                <input type="text" id="maxYear" value={maxYear} onChange={handleMaxYearChange}></input>
+                <input type="text" id="maxYear" value={maxYear} onChange={handleMaxYearChange}/>
             </form>
 
             <button onClick={findMovie}>Find Me a Movie!</button>
