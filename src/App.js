@@ -40,8 +40,21 @@ function App() {
     }
 
     const handleActorChange = (actor, event) => {
+        const api_key = process.env.REACT_APP_TMDB_API_KEY;
         event.preventDefault();
         console.log("Retrieved " + actor);
+        const actor_id = null;
+
+        axios
+            .get(`https://api.themoviedb.org/3/search/person?api_key=${api_key}&query=${actor}`)
+            .then((response) => {
+                console.log(response);
+                setActors(actors => [...actors, actor]);
+                console.log(`Actors: ${actors}`);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     }
 
     const handleGenreChange = (event) => {
@@ -146,6 +159,11 @@ function App() {
                     ))}
                 </ul>
                 <input type="text" id="actorName" placeholder="Enter the name of an actor"/>
+                <ul>
+                    {actors.map((actor) => (
+                        <li key={actor}> {actor} </li>
+                    ))}
+                </ul>
                 <button onClick={(event) => handleActorChange(document.getElementById('actorName').value, event)}>Add actor</button>
                 <label htmlFor="minYear">Minimum Year:</label>
                 <input type="text" id="minYear" value={minYear} onChange={handleMinYearChange}/>
