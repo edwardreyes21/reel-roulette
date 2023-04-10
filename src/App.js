@@ -102,8 +102,6 @@ function App() {
         const genreClone = [...genre];
         const actorNames = actors.map((actor) => actor.id);
 
-        console.log(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}&primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&with_genres=${genreClone.join(',')}&with_cast=${actorNames.join(',')}`);
-
         axios
             .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}&primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&with_genres=${genreClone.join(',')}&with_cast=${actorNames.join(',')}`)
             .then((response) => {
