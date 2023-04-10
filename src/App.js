@@ -50,7 +50,9 @@ function App() {
                 console.log(response);
                 const actor = response.data.results[0];
 
-                setActors(actors => [...actors, actor]);
+                if (!actors.some((a) => a.id === actor.id)) {
+                    setActors(actors => [...actors, actor]);
+                }
             })
             .catch((error) => {
                 console.log(error);
