@@ -117,14 +117,16 @@ function App() {
                             &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&with_genres=${genreClone.join(',')}&with_cast=${actorNames.join(',')}`)
                         .then((response) => {
                             console.log("New GET", response);
-                            setSelectedMovie(response.data.results[0]);
+                            const randomIndex = Math.floor(Math.random() * response.data.results.length);
+                            setSelectedMovie(response.data.results[randomIndex]);
                         })
                         .catch((error) => {
                             console.log(error);
                         })
                 }
                 else {
-                    setSelectedMovie(response.data.results[0]);
+                    const randomIndex = Math.floor(Math.random() * response.data.results.length);
+                    setSelectedMovie(response.data.results[randomIndex]);
                 }
 
             })
