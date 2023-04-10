@@ -72,6 +72,10 @@ function App() {
         setGenre(prevGenre => [...prevGenre, ...selectedValues]);
     }
 
+    const handleRemoveActor = (actorToRemove) => {
+        setActors(actors.filter((actor) => actor !== actorToRemove));
+    }
+
     const handleRemoveGenre = (genreToRemove) => {
         setGenre(genre.filter((genre) => genre !== genreToRemove));
     }
@@ -168,7 +172,7 @@ function App() {
                 <input type="text" id="actorName" placeholder="Enter the name of an actor"/>
                 <ul>
                     {actors.map((actor) => (
-                        <li key={actor}> {actor.name} </li>
+                        <li key={actor}> {actor.name} <button onClick={() => handleRemoveActor(actor)}>Remove</button></li>
                     ))}
                 </ul>
                 <button onClick={(event) => handleActorChange(document.getElementById('actorName').value, event)}>Add actor</button>
