@@ -43,14 +43,14 @@ function App() {
         const api_key = process.env.REACT_APP_TMDB_API_KEY;
         event.preventDefault();
         console.log("Retrieved " + actor);
-        const actor_id = null;
 
         axios
-            .get(`https://api.themoviedb.org/3/search/person?api_key=${api_key}&query=${actor}`)
+            .get(`https://api.themoviedb.org/3/search/person?api_key=${api_key}&query=${encodeURIComponent(actor)}`)
             .then((response) => {
                 console.log(response);
+                const actor = response.data.results[0];
+
                 setActors(actors => [...actors, actor]);
-                console.log(`Actors: ${actors}`);
             })
             .catch((error) => {
                 console.log(error);
@@ -82,7 +82,8 @@ function App() {
         console.log("Genres: " + genre);
         console.log("minYear: " + minYear);
         console.log("maxYear: " + maxYear);
-    }, [genre, minYear, maxYear]);
+        console.log(actors);
+    }, [actors, genre, minYear, maxYear]);
 
 
     const findMovie = () => {
@@ -93,10 +94,11 @@ function App() {
         console.log("Random page: " + random_page);
 
         const genreClone = [...genre];
+        const actorsClone = [...actors];
 
         axios
             .get(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&page=${random_page}
-                    &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&with_genres=${genreClone.join(',')}`)
+                    &primary_release_date.gte=${minYear}-01-01&primary_release_date.lte=${maxYear}-12-31&with_genres=${genreClone.join(',')}&with_cast=${actorsClone.join(',')}`)
             .then((response) => {
                 console.log("First GET", response);
 
@@ -161,7 +163,7 @@ function App() {
                 <input type="text" id="actorName" placeholder="Enter the name of an actor"/>
                 <ul>
                     {actors.map((actor) => (
-                        <li key={actor}> {actor} </li>
+                        <li key={actor}> {actor.name} </li>
                     ))}
                 </ul>
                 <button onClick={(event) => handleActorChange(document.getElementById('actorName').value, event)}>Add actor</button>
