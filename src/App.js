@@ -6,7 +6,7 @@ function App() {
     const [genre, setGenre] = useState([]);
     const [actors, setActors] = useState([]);
     const [maxYear, setMaxYear] = useState(new Date().getFullYear());
-    const [minYear, setMinYear] = useState(2023);
+    const [minYear, setMinYear] = useState(1940);
     const [selectedMovie, setSelectedMovie] = useState(null);
 
     const genreMap = {
