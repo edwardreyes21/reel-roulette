@@ -3,45 +3,58 @@ require('dotenv').config();
 const express = require('express');
 const passport = require('passport');
 const path = require('path');
+const crypto = require('crypto');
+const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mongoose = require('mongoose');
-
-mongoose.connect(process.env.mongodb_connection_string, { useNewUrlParser: true, useUnifiedTopology: true });
-
-const userSchema = new mongoose.Schema({
-    googleId: { type: String, required: true },
-    email: { type: String, required: true }
-});
-
-const user = mongoose.model('User', userSchema);
-const db = mongoose.connection.useDb('movie_db');
-const users = db.model('User', userSchema);
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../build')));
+app.use(session({
+  secret: crypto.randomBytes(64).toString('hex'),
+  resave: false,
+  saveUninitialized: false
+}));
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "/auth/google/callback"
+  callbackURL: "/auth/google/callback",
+  passReqToCallback: true
 },
-function(accessToken, refreshToken, profile, cb) {
+function(request, accessToken, refreshToken, profile, done) {
   // This function will be called when the user has been authenticated
   // You can use this callback to save user data to a database, etc.
-  return cb(null, profile);
+  return done(null, profile);
 }));
 
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+passport.serializeUser((user, done) => {
+  process.nextTick(() => {
+    done(null, { id: user.id, username: user.username, name: user.name });
+  });
+});
+
+passport.deserializeUser((user, cb) => {
+  process.nextTick(() => {
+    return cb(null, user);
+  });
+});
+
+app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
 
 app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
+  passport.authenticate('google', { 
+    successRedirect: '/auth/google/success', 
+    failureRedirect: '/auth/google/failure'
+  }
+));
 
+app.get('/auth/google/success', (req, res) => {
+  console.log("Logged in!");
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+})
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
