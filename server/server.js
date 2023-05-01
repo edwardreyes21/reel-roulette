@@ -18,6 +18,15 @@ app.use(session({
   saveUninitialized: false
 }));
 
+mongoose.connect(process.env.mongodb_connection_string, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const userSchema = new mongoose.Schema({
+  googleId: { type: String, required: true },
+  email: { type: String, required: true }
+});
+
+const User = mongoose.model('User', userSchema);
+
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -25,9 +34,25 @@ passport.use(new GoogleStrategy({
   passReqToCallback: true
 },
 function(request, accessToken, refreshToken, profile, done) {
-  // This function will be called when the user has been authenticated
-  // You can use this callback to save user data to a database, etc.
-  return done(null, profile);
+  User.findOne({ googleId: profile.id })
+    .then((user) => {
+      if (!user) {
+        console.log("Creating new user on db");
+        const newUser = new User({ googleId: profile.id, email: profile.emails[0].value });
+        newUser.save();
+        return newUser;
+      }
+      else {
+        console.log("User is already on db");
+        return user;
+      }
+    })
+    .then((user) => {
+      return done(null, user);
+    })
+    .catch((err) => {
+      return done(err);
+    })
 }));
 
 passport.serializeUser((user, done) => {
