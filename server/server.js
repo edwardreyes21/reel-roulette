@@ -20,9 +20,14 @@ app.use(session({
 
 mongoose.connect(process.env.mongodb_connection_string, { useNewUrlParser: true, useUnifiedTopology: true });
 
+const movieSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+});
+
 const userSchema = new mongoose.Schema({
   googleId: { type: String, required: true },
-  email: { type: String, required: true }
+  email: { type: String, required: true },
+  watchList: [movieSchema]
 });
 
 const User = mongoose.model('User', userSchema);
