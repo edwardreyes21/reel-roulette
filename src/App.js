@@ -80,6 +80,18 @@ function App() {
         setGenre(genre.filter((genre) => genre !== genreToRemove));
     }
 
+    const handleAddToWatchList = () => {
+        const movie = { title: selectedMovie.title };
+        console.log(`Adding ${movie.title} to watch list`);
+        axios.post('/watchlist', { movie })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+
     useEffect(() => {
         console.log(selectedMovie);
     }, [selectedMovie]);
@@ -184,6 +196,7 @@ function App() {
 
             {selectedMovie && (
                 <div>
+                    <button onClick={() => handleAddToWatchList()}>Add to Watch List</button>
                     <h1>Title: {selectedMovie.title}</h1>
                     <img id="poster" src={`https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`}></img>
                     <p>Summary: {selectedMovie.overview}</p>
