@@ -102,7 +102,6 @@ app.post('/watchlist', (req, res) => {
   const userId = req.user.id;
   const { title } = req.body.movie;
 
-  console.log(userId);
   console.log(title);
 });
 
