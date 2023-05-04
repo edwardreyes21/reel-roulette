@@ -103,6 +103,19 @@ app.post('/watchlist', (req, res) => {
   const { title } = req.body.movie;
 
   console.log(title);
+
+  User.findOneAndUpdate(
+    { _id: userId },
+    { $push: { watchList: { title } } },
+    { new: true }
+  )
+  .then((updatedUser) => {
+    res.json(updatedUser);
+  })
+  .catch((error) => {
+    console.log(errror);
+    res.status(500).json({ message: 'Error occured while updating the user watch list' });
+  });
 });
 
 const PORT = process.env.PORT || 3000;
