@@ -18,6 +18,9 @@ app.use(session({
   saveUninitialized: false
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 mongoose.connect(process.env.mongodb_connection_string, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const movieSchema = new mongoose.Schema({
@@ -88,6 +91,19 @@ app.get('/auth/google/success', (req, res) => {
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
+
+app.post('/watchlist', (req, res) => {
+  if (!req.isAuthenticated()) {
+    res.status(401).json({ message: 'User is not authenticated' });
+    return;
+  }
+
+  const userId = req.user.id;
+  const { title } = req.body.movie;
+
+  console.log(userId);
+  console.log(title);
 });
 
 const PORT = process.env.PORT || 3000;
