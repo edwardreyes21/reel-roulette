@@ -93,6 +93,18 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
+app.get('/api/user', (req, res) => {
+  if (!req.isAuthenticated()) {
+    res.status(401).json({ message: 'User is not authenticated' });
+    return;
+  }
+
+  console.log(req);
+
+  const { name, imageUrl } = req.user.profile;
+  res.json({ name, imageUrl });
+})
+
 app.post('/watchlist', (req, res) => {
   if (!req.isAuthenticated()) {
     res.status(401).json({ message: 'User is not authenticated' });
