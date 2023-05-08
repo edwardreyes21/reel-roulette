@@ -44,7 +44,6 @@ passport.use(new GoogleStrategy({
   passReqToCallback: true
 },
 function(request, accessToken, refreshToken, profile, done) {
-  console.log(profile);
   User.findOne({ googleId: profile.id })
     .then((user) => {
       if (!user) {
@@ -77,7 +76,6 @@ function(request, accessToken, refreshToken, profile, done) {
 }));
 
 passport.serializeUser((user, done) => {
-  console.log(user);
   process.nextTick(() => {
     done(null, {
        id: user.id,
@@ -117,10 +115,8 @@ app.get('/api/user', (req, res) => {
     return;
   }
 
-  console.log(req);
-
-  const { name, imageUrl } = req.user.profile;
-  res.json({ name, imageUrl });
+  const { displayName, imageUrl } = req.user;
+  res.json({ displayName, imageUrl });
 })
 
 app.post('/watchlist', (req, res) => {
