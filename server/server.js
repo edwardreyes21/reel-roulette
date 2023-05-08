@@ -30,6 +30,8 @@ const movieSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
   googleId: { type: String, required: true },
   email: { type: String, required: true },
+  displayName: { type: String, required: true },
+  imageUrl: { type: String, required: true },
   watchList: [movieSchema]
 });
 
@@ -42,21 +44,32 @@ passport.use(new GoogleStrategy({
   passReqToCallback: true
 },
 function(request, accessToken, refreshToken, profile, done) {
+  console.log(profile);
   User.findOne({ googleId: profile.id })
     .then((user) => {
       if (!user) {
         console.log("Creating new user on db");
-        const newUser = new User({ googleId: profile.id, email: profile.emails[0].value });
+        const newUser = new User({
+          googleId: profile.id,
+          email: profile.emails[0].value, 
+          displayName: profile.displayName,
+          imageUrl: profile.photos[0].value
+        });
         newUser.save();
         return newUser;
       }
       else {
         console.log("User is already on db");
+        user.email = profile.emails[0].value, 
+        user.displayName = profile.displayName,
+        user.imageUrl = profile.photos[0].value
+        user.save();
+
         return user;
       }
     })
-    .then((user) => {
-      return done(null, user);
+    .then((profile) => {
+      return done(null, profile);
     })
     .catch((err) => {
       return done(err);
@@ -64,8 +77,13 @@ function(request, accessToken, refreshToken, profile, done) {
 }));
 
 passport.serializeUser((user, done) => {
+  console.log(user);
   process.nextTick(() => {
-    done(null, { id: user.id, username: user.username, name: user.name });
+    done(null, {
+       id: user.id,
+       username: user.username,
+       name: user.name,
+       profile: user.profile });
   });
 });
 
