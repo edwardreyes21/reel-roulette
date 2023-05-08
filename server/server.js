@@ -81,9 +81,9 @@ passport.serializeUser((user, done) => {
   process.nextTick(() => {
     done(null, {
        id: user.id,
-       username: user.username,
-       name: user.name,
-       profile: user.profile });
+       displayName: user.displayName,
+       imageUrl: user.imageUrl,
+    });
   });
 });
 
