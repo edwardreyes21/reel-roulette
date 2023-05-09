@@ -6,14 +6,18 @@ function LoginButton() {
   const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    console.log(userData);
+  }, [userData])
+
+  useEffect(() => {
     axios.get('/api/user')
-        .then((res) => {
-            setUserData(res.data);
-        })
-        .catch((err) => {
-            console.error(err);
-        })
-  })
+      .then((res) => {
+          setUserData(res.data);
+      })
+      .catch((err) => {
+          console.error(err);
+      })
+  }, [])
 
   return (
     <>
