@@ -30,7 +30,7 @@ function App() {
         "53": "Thriller",
         "10752": "War",
         "37": "Western"
-    };
+    }
 
     const handleMinYearChange = (event) => {
         setMinYear(event.target.value);
@@ -163,7 +163,11 @@ function App() {
     return (
         <div className="App">
             {userData ? (
-                <h1>Logged In</h1>
+                <>
+                    <img src={userData.imageUrl} />
+                    <h1>{userData.displayName}</h1>
+                    <h1>Logged In</h1>
+                </>
             ) : (
                 <h1>Logged Out</h1>
             )}
