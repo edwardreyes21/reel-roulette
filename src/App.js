@@ -1,6 +1,7 @@
 import React, {useState, useHook, useEffect} from 'react';
 import './App.css'
 import axios from 'axios';
+import LoginButton from './LoginButton';
 
 function App() {
     const [genre, setGenre] = useState([]);
@@ -162,6 +163,7 @@ function App() {
 
     return (
         <div className="App">
+            <LoginButton />
             {userData ? (
                 <>
                     <img src={userData.imageUrl} />
