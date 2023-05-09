@@ -17,11 +17,11 @@ function LoginButton() {
 
   return (
     <>
-      <div className='LoginButton'>
+      <div className='login-button'>
         <a href="/auth/google">Login via Google</a>
       </div>
 
-      <div className=''>
+      <div className='user-data-box'>
         {userData ? (
           <>
               <img src={userData.imageUrl} />
