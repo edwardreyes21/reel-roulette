@@ -9,7 +9,6 @@ function App() {
     const [maxYear, setMaxYear] = useState(new Date().getFullYear());
     const [minYear, setMinYear] = useState(1940);
     const [selectedMovie, setSelectedMovie] = useState(null);
-    const [userData, setUserData] = useState(null);
 
     const genreMap = {
         "28": "Action",
@@ -105,17 +104,6 @@ function App() {
         console.log(actors);
     }, [actors, genre, minYear, maxYear]);
 
-
-    useEffect(() => {
-        axios.get('/api/user')
-            .then((res) => {
-                setUserData(res.data);
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    })
-
     const findMovie = () => {
         const api_key = process.env.REACT_APP_TMDB_API_KEY;
         const default_total_pages = 500; // By design, TMDB API can only retrieve up to the 500th page
@@ -164,15 +152,7 @@ function App() {
     return (
         <div className="App">
             <LoginButton />
-            {userData ? (
-                <>
-                    <img src={userData.imageUrl} />
-                    <h1>{userData.displayName}</h1>
-                    <h1>Logged In</h1>
-                </>
-            ) : (
-                <h1>Logged Out</h1>
-            )}
+            
             <form>
                 <label htmlFor="genre-select">Select genres:</label>
                 <select id="genre-select" multiple={true} size={5} onChange={handleGenreChange}>
