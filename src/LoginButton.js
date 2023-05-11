@@ -21,10 +21,15 @@ function LoginButton() {
 
   return (
     <>
-      <div className='login-button'>
+      {userData ? (
+        <div className='logout-button'>
+        <a href="/auth/logout">Logout</a>
+        </div>
+      ) : (
+        <div className='login-button'>
         <a href="/auth/google">Login via Google</a>
-      </div>
-
+        </div>
+      )}
       <div className='user-data-box'>
         {userData ? (
           <>
