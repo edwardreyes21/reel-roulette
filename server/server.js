@@ -105,6 +105,15 @@ app.get('/auth/google/success', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
 
+app.get('/auth/logout', (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      console.error(err);
+    }
+    res.redirect('/');
+  });
+})
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
