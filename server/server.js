@@ -103,7 +103,7 @@ app.get('/auth/google/callback',
 app.get('/auth/google/success', (req, res) => {
   console.log("Logged in!");
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
-})
+});
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
@@ -118,6 +118,14 @@ app.get('/api/user', (req, res) => {
   const { displayName, imageUrl } = req.user;
   res.json({ displayName, imageUrl });
 })
+
+app.get('/api/is-authenticated', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ isAuthenticated: true });
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+});
 
 app.post('/watchlist', (req, res) => {
   if (!req.isAuthenticated()) {
