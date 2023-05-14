@@ -136,7 +136,7 @@ app.get('/api/is-authenticated', (req, res) => {
   }
 });
 
-app.post('/watchlist', (req, res) => {
+app.post('/watchlist/new-movie', (req, res) => {
   if (!req.isAuthenticated()) {
     res.status(401).json({ message: 'User is not authenticated' });
     return;

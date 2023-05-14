@@ -84,7 +84,7 @@ function App() {
     const handleAddToWatchList = () => {
         const movie = { title: selectedMovie.title };
         console.log(`Adding ${movie.title} to watch list`);
-        axios.post('/watchlist', { movie })
+        axios.post('/watchlist/new-movie', { movie })
             .then((response) => {
                 console.log(response);
             })
