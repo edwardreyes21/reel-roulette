@@ -91,7 +91,12 @@ passport.deserializeUser((user, cb) => {
   });
 });
 
-app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
+app.get('/auth/google',
+  passport.authenticate('google', { 
+    scope: ['email', 'profile'],
+    prompt: 'select_account'
+  }
+));
 
 app.get('/auth/google/callback',
   passport.authenticate('google', { 
