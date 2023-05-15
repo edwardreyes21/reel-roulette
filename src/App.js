@@ -1,4 +1,5 @@
 import React, {useState, useHook, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import './App.css'
 import axios from 'axios';
 import LoginButton from './LoginButton';
@@ -152,7 +153,7 @@ function App() {
     return (
         <div className="App">
             <LoginButton />
-            
+            <Link to="/watchlist">Send to Watchlist</Link>
             <form>
                 <label htmlFor="genre-select">Select genres:</label>
                 <select id="genre-select" multiple={true} size={5} onChange={handleGenreChange}>
