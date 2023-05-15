@@ -67,8 +67,8 @@ function(request, accessToken, refreshToken, profile, done) {
         return user;
       }
     })
-    .then((profile) => {
-      return done(null, profile);
+    .then((user) => {
+      return done(null, user);
     })
     .catch((err) => {
       return done(err);
@@ -79,6 +79,7 @@ passport.serializeUser((user, done) => {
   process.nextTick(() => {
     done(null, {
        id: user.id,
+       googleId: user.googleId,
        displayName: user.displayName,
        imageUrl: user.imageUrl,
     });
@@ -131,6 +132,32 @@ app.get('/api/user', (req, res) => {
 
   const { displayName, imageUrl } = req.user;
   res.json({ displayName, imageUrl });
+})
+
+app.get('/api/watchlist', (req, res) => {
+  if (!req.isAuthenticated()) {
+    res.status(401).json({ message: 'User is not authenticated' });
+    return;
+  }
+
+  const userId = req.user.id;
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        console.log('User does not exist');
+        return res.status(404).json({ message: 'User not found '});
+      }
+
+      const watchlist = user.watchList;
+
+      res.json({ watchlist });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    })
+
 })
 
 app.get('/api/is-authenticated', (req, res) => {
