@@ -1,4 +1,5 @@
 import React, {useState, useHook, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 function LoginButton() {
@@ -23,7 +24,8 @@ function LoginButton() {
     <>
       {userData ? (
         <div className='logout-button'>
-        <a href="/auth/logout">Logout</a>
+          <a href="/auth/logout">Logout</a>
+          <Link to="/watchlist">Go to Watchlist</Link>
         </div>
       ) : (
         <div className='login-button'>
