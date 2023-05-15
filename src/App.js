@@ -153,7 +153,6 @@ function App() {
     return (
         <div className="App">
             <LoginButton />
-            <Link to="/watchlist">Send to Watchlist</Link>
             <form>
                 <label htmlFor="genre-select">Select genres:</label>
                 <select id="genre-select" multiple={true} size={5} onChange={handleGenreChange}>
