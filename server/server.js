@@ -188,10 +188,37 @@ app.post('/watchlist/new-movie', (req, res) => {
     res.json(updatedUser);
   })
   .catch((error) => {
-    console.log(errror);
+    console.log(error);
     res.status(500).json({ message: 'Error occured while updating the user watch list' });
   });
 });
+
+app.post('/watchlist/delete-movie', (req, res) => {
+  if (!req.isAuthenticated()) {
+    res.status(401).json({ message: 'User is not authenticated' });
+    return;
+  }
+
+  const userId = req.user.id;
+  const movieId = req.body.movieId;
+
+  console.log("User ID: " + userId);
+  console.log("Movie ID: " + movieId);
+
+  User.findOneAndUpdate(
+    { _id: userId },
+    { $pull: { watchList: { _id: movieId } } },
+    { new: true }
+  )
+  .then((updatedUser) => {
+    console.log("Completed deletion");
+    res.json(updatedUser);
+  })
+  .catch((error) => {
+    console.log(error);
+    res.status(500).json({ message: 'Error occured while updating the user watch list' });
+  })
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
