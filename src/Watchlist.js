@@ -7,11 +7,9 @@ function Watchlist() {
 
     const handleRemoveMovie = (movieToRemove) => {
         setWatchlist(watchlist.filter((movie) => movie !== movieToRemove));
+
         axios
             .post('/watchlist/delete-movie', { movieId: movieToRemove._id })
-            .then((response) => {
-                console.log(response);
-            })
             .catch((error) => {
                 console.log(error);
             })

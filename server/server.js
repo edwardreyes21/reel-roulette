@@ -202,18 +202,11 @@ app.post('/watchlist/delete-movie', (req, res) => {
   const userId = req.user.id;
   const movieId = req.body.movieId;
 
-  console.log("User ID: " + userId);
-  console.log("Movie ID: " + movieId);
-
   User.findOneAndUpdate(
     { _id: userId },
     { $pull: { watchList: { _id: movieId } } },
     { new: true }
   )
-  .then((updatedUser) => {
-    console.log("Completed deletion");
-    res.json(updatedUser);
-  })
   .catch((error) => {
     console.log(error);
     res.status(500).json({ message: 'Error occured while updating the user watch list' });
