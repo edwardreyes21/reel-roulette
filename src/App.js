@@ -83,7 +83,13 @@ function App() {
     }
 
     const handleAddToWatchList = () => {
-        const movie = { title: selectedMovie.title };
+        const movie = { 
+            title: selectedMovie.title,
+            poster_path: selectedMovie.poster_path,
+            overview: selectedMovie.overview,
+            release_date: selectedMovie.release_date
+        };
+        
         console.log(`Adding ${movie.title} to watch list`);
         axios.post('/watchlist/new-movie', { movie })
             .then((response) => {

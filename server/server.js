@@ -25,6 +25,9 @@ mongoose.connect(process.env.mongodb_connection_string, { useNewUrlParser: true,
 
 const movieSchema = new mongoose.Schema({
   title: { type: String, required: true },
+  poster_path: { type: String, required: true },
+  overview: { type: String, required: true },
+  release_date: { type: String, required: true }
 });
 
 const userSchema = new mongoose.Schema({
@@ -174,14 +177,14 @@ app.post('/watchlist/new-movie', (req, res) => {
     return;
   }
 
-  const userId = req.user.id;
-  const { title } = req.body.movie;
+  console.log(req);
 
-  console.log(title);
+  const userId = req.user.id;
+  const { title, poster_path, overview, release_date } = req.body.movie;
 
   User.findOneAndUpdate(
     { _id: userId },
-    { $push: { watchList: { title } } },
+    { $push: { watchList: { title, poster_path, overview, release_date } } },
     { new: true }
   )
   .then((updatedUser) => {
