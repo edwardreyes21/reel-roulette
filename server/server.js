@@ -211,7 +211,11 @@ app.post('/watchlist/delete-movie', (req, res) => {
     console.log(error);
     res.status(500).json({ message: 'Error occured while updating the user watch list' });
   })
-})
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
