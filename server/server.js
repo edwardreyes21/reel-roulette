@@ -79,20 +79,17 @@ function(request, accessToken, refreshToken, profile, done) {
 }));
 
 passport.serializeUser((user, done) => {
-  process.nextTick(() => {
-    done(null, {
-       id: user.id,
-       googleId: user.googleId,
-       displayName: user.displayName,
-       imageUrl: user.imageUrl,
-    });
-  });
+  done(null, user.id);
 });
 
-passport.deserializeUser((user, cb) => {
-  process.nextTick(() => {
-    return cb(null, user);
-  });
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((error) => {
+      done(error);
+    })
 });
 
 app.get('/auth/google',
