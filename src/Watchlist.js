@@ -35,7 +35,12 @@ function Watchlist() {
                 <div className="watchlist">
                     {
                       watchlist.map((movie) => (
-                        <div key={movie._id}>{movie.title} <button onClick={() => handleRemoveMovie(movie)}>Remove Movie</button></div>
+                        <div key={movie._id}>
+                            {movie.title} <button onClick={() => handleRemoveMovie(movie)}>Remove Movie</button>
+                            <p>Overview: {movie.overview}</p>
+                            <p>Release date: {movie.release_date}</p>
+                            <img id="poster" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
+                        </div>
                       ))
                     }
                 </div>
