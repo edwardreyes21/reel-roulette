@@ -20,3 +20,13 @@
     flex-direction: column;
     align-items: center;
 }
+
+.actor-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.year-selection-box {
+    gap: 20px;
+}

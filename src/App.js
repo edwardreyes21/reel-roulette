@@ -190,9 +190,11 @@ function App() {
                             ))}
                         </ul>
                     </div>
-                    <div className="actor-box">
-                        <input type="text" id="actorName" placeholder="Enter the name of an actor"/>
-                        <button onClick={(event) => handleActorChange(document.getElementById('actorName').value, event)}>Add actor</button>
+                    <div className="actor-div">
+                        <div className="actor-select-bar">
+                            <input type="text" id="actorName" placeholder="Enter the name of an actor"/>
+                            <button onClick={(event) => handleActorChange(document.getElementById('actorName').value, event)}>Add actor</button>
+                        </div>
                         <ul>
                             {actors.map((actor) => (
                                 <li key={actor}> {actor.name} <button onClick={() => handleRemoveActor(actor)}>Remove</button></li>
