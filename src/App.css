@@ -1,4 +1,22 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 #poster {
     width: 20%;
     height: auto;
+}
+
+.movie-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.genre-select-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
