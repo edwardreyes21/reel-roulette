@@ -11,7 +11,7 @@
 
 .movie-form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -21,6 +21,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.genre-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.genre-item span {
+    margin-right: 8px;
 }
 
 .actor-div {

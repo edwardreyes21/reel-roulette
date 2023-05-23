@@ -186,7 +186,10 @@ function App() {
                         </select>
                         <ul>
                             {genre.map((genre) => (
-                                <li key={genre}> {genreMap[genre]} <button onClick={() => handleRemoveGenre(genre)}>Remove</button></li>
+                                <li key={genre} className="genre-item">
+                                    <span>{genreMap[genre]}</span>
+                                    <button onClick={() => handleRemoveGenre(genre)}>Remove</button>
+                                </li>
                             ))}
                         </ul>
                     </div>
