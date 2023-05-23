@@ -203,9 +203,9 @@ function App() {
                     </div>
                     <div className="year-selection-box">
                         <label htmlFor="minYear">Minimum Year:</label>
-                        <input type="text" id="minYear" value={minYear} onChange={handleMinYearChange}/>
+                        <input type="text" id="minYear" value={minYear} className="year-input-field" onChange={handleMinYearChange}/>
                         <label htmlFor="maxYear">Maximum Year:</label>
-                        <input type="text" id="maxYear" value={maxYear} onChange={handleMaxYearChange}/>
+                        <input type="text" id="maxYear" value={maxYear} className="year-input-field" onChange={handleMaxYearChange}/>
                     </div>
                 </form>
             </div>

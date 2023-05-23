@@ -13,6 +13,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .genre-select-div {
@@ -29,4 +31,9 @@
 
 .year-selection-box {
     gap: 20px;
+}
+
+.year-input-field {
+    width: 100px;
+    margin-right: 10px;
 }
