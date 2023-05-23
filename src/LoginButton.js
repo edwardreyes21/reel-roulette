@@ -27,21 +27,21 @@ function LoginButton() {
         <div className='logout-button'>
           <a href="/auth/logout">Logout</a>
           <Link to="/watchlist">Go to Watchlist</Link>
+          <div className='user-data-box'>
+            {userData && (
+              <div className="user-data">
+                <img src={userData.imageUrl} />
+                <p>Welcome, {userData.displayName}!</p>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <div className='login-button'>
         <a href="/auth/google">Login via Google</a>
         </div>
       )}
-      <div className='user-data-box'>
-        {userData && (
-          <>
-              <img src={userData.imageUrl} />
-              <h1>{userData.displayName}</h1>
-              <h1>Logged In</h1>
-          </>
-        )}
-      </div>
+      
     </>
   );
 }

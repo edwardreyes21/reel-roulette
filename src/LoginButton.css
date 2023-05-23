@@ -5,6 +5,18 @@
     gap: 10px;
 }
 
+.user-data {
+    display: flex;
+    align-items: center;
+}
+
+.user-data img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+
 .login-button {
     display: flex;
     justify-content: center;
