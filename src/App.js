@@ -218,9 +218,9 @@ function App() {
             {selectedMovie && (
                 <div className="selected-movie">
                     <button onClick={() => handleAddToWatchList()}>Add to Watch List</button>
-                    <h1>Title: {selectedMovie.title}</h1>
-                    <img id="poster" src={`https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`}></img>
-                    <p>Summary: {selectedMovie.overview}</p>
+                    <h1 id="selected-movie-title">{selectedMovie.title}</h1>
+                    <img id="selected-movie-poster" src={`https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`}></img>
+                    <p id="selected-movie-summary">Summary: {selectedMovie.overview}</p>
                     <p>Release date: {selectedMovie.release_date}</p>
                     <p>Genres: {selectedMovie.genre_ids.map(id => (genreMap[id])).join(', ')}</p>
                 </div>
