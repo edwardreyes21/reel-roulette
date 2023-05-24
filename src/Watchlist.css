@@ -1,0 +1,28 @@
+.watchlist-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.watchlist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#watchlist-movie-title {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#watchlist-movie-poster {
+    width: 200px;
+    height: 300px;
+}
+
+#watchlist-movie-summary {
+    max-width: 800px;
+    margin: 10 auto;
+    text-align: center;
+}
